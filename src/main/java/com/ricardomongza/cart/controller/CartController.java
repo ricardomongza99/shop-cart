@@ -26,14 +26,12 @@ public class CartController {
     }
 
     @PostMapping("/cart")
-    public String cartAdd(Model model, @RequestParam("itemId") Integer itemId, @RequestParam("quantity") BigDecimal quantity) {
-        purchaseProcess.AddItemToCart(itemId, quantity);
-        return "redirect:/cart";
-    }
-
-    @DeleteMapping("/cart/{itemId}")
-    public String removeFromCart(@PathVariable("itemId") Integer itemId) {
-        purchaseProcess.RemoveItemFromCart(itemId, BigDecimal.ONE);
+    public String cartAction(@RequestParam("itemId") Integer itemId, @RequestParam("quantity") BigDecimal quantity, @RequestParam("action") String action ) {
+        if ("add".equals(action)) {
+            purchaseProcess.AddItemToCart(itemId, quantity);
+        } else if ("remove".equals(action)) {
+            purchaseProcess.RemoveItemFromCart(itemId, quantity);
+        }
         return "redirect:/cart";
     }
 }
