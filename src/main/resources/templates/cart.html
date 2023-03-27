@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8">
-    <title>Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   </head>
   <body>
-    <h1 th:text="${message}"></h1>
+    <div class="container">
+      <h1 class="my-4">Add Product to Cart</h1>
+      <div class="row">
+        <div class="col-md-8">
+          <form  method="post" action="#" th:action="@{/cart}">
+            <input type="number" class="form-control mb-3" id="itemId" name="itemId" placeholder="Enter product ID"  required>
+            <input type="number" class="form-control mb-3" id="quantity" name="quantity" placeholder="Enter quantity" required>
+            <button type="submit" class="btn btn-primary">Add to cart</button>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">Carrito</div>
+            <div class="card-body">
+              <table class="table">
+                <tbody>
+                <tr th:each="item : ${cartItems}">
+                  <td th:text="${item}"></td>
+                </tr>
+                </tbody>
+              </table>
+<!--              <p>No hay artículos en el carrito.</p>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
   </body>
 </html>

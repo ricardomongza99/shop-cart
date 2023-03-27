@@ -6,9 +6,13 @@ import com.ricardomongza.cart.repository.CustomerDatabase;
 import com.ricardomongza.cart.repository.CustomerRepository;
 import com.ricardomongza.cart.repository.ItemDatabase;
 import com.ricardomongza.cart.repository.ItemRepository;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+@Service
 public class BasicPurchaseProcess implements PurchaseProcess {
 
     // Repositories
@@ -77,4 +81,16 @@ public class BasicPurchaseProcess implements PurchaseProcess {
 
         return sb.toString();
     }
+
+    public List<String> getCartItems() {
+        List<String> itemList = new ArrayList<>();
+        var items = this.shoppingCart.getItems();
+
+        items.forEach((key, value) -> {
+            itemList.add(key.name() + " x " + value.toString());
+        });
+
+        return itemList;
+    }
+
 }

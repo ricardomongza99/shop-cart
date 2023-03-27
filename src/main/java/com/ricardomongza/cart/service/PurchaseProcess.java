@@ -2,6 +2,7 @@ package com.ricardomongza.cart.service;
 
 import com.ricardomongza.cart.model.Customer;
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface PurchaseProcess {
 
@@ -14,5 +15,7 @@ public interface PurchaseProcess {
     public Customer setCustomer(int customerId);
 
     public Customer getCustomer();
+
+    public List<String> getCartItems();
 
 }
