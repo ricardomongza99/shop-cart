@@ -4,16 +4,14 @@ import com.ricardomongza.cart.service.PurchaseProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 
 @Controller
 public class CartController {
 
-    // TODO: Change to Purchase process type Interface
     private final PurchaseProcess purchaseProcess;
 
     @Autowired
@@ -28,10 +26,14 @@ public class CartController {
     }
 
     @PostMapping("/cart")
-    public String cartAdd(@RequestParam("itemId") Integer itemId, @RequestParam("quantity") BigDecimal quantity, Model model) {
+    public String cartAdd(Model model, @RequestParam("itemId") Integer itemId, @RequestParam("quantity") BigDecimal quantity) {
         purchaseProcess.AddItemToCart(itemId, quantity);
-        model.addAttribute("cartItems", purchaseProcess.getCartItems());
-        return "cart";
+        return "redirect:/cart";
     }
 
+    @DeleteMapping("/cart/{itemId}")
+    public String removeFromCart(@PathVariable("itemId") Integer itemId) {
+        purchaseProcess.RemoveItemFromCart(itemId, BigDecimal.ONE);
+        return "redirect:/cart";
+    }
 }

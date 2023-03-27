@@ -1,5 +1,6 @@
 package com.ricardomongza.cart.service;
 
+import com.ricardomongza.cart.model.CartItem;
 import com.ricardomongza.cart.model.Customer;
 import com.ricardomongza.cart.model.ShoppingCart;
 import com.ricardomongza.cart.repository.CustomerDatabase;
@@ -9,7 +10,6 @@ import com.ricardomongza.cart.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -73,24 +73,17 @@ public class BasicPurchaseProcess implements PurchaseProcess {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Customer: " + this.customer.email()+"\n");
-        var items = this.shoppingCart.getItems();
+        var cartItems = this.shoppingCart.getCartItems();
 
-        items.forEach((key, value) -> {
-            sb.append("Item: " + key.toString() + "Quantity: " + value + "\n");
-        });
+        for (CartItem cartItem : cartItems) {
+            sb.append("Item: " + cartItem.item().toString() + "Quantity: " + cartItem.quantity() + "\n");
+        }
 
         return sb.toString();
     }
 
-    public List<String> getCartItems() {
-        List<String> itemList = new ArrayList<>();
-        var items = this.shoppingCart.getItems();
-
-        items.forEach((key, value) -> {
-            itemList.add(key.name() + " x " + value.toString());
-        });
-
-        return itemList;
+    public List<CartItem> getCartItems() {
+        return shoppingCart.getCartItems();
     }
 
 }

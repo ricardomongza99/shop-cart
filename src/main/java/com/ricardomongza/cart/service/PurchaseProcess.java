@@ -1,5 +1,6 @@
 package com.ricardomongza.cart.service;
 
+import com.ricardomongza.cart.model.CartItem;
 import com.ricardomongza.cart.model.Customer;
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,6 +17,6 @@ public interface PurchaseProcess {
 
     public Customer getCustomer();
 
-    public List<String> getCartItems();
+    public List<CartItem> getCartItems();
 
 }
